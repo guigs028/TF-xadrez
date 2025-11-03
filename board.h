@@ -1,19 +1,27 @@
+/**
+ * MODULO BOARD (Tabuleiro)
+ * Define a estrutura do tabuleiro e funcoes para manipula-lo
+ */
+
 #ifndef BOARD_H
 #define BOARD_H
 
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * Estrutura que representa o tabuleiro do jogo
+ */
 typedef struct {
-    int rows;
-    int cols;
-    int bombs;
-    int revealed_count;
-    int first_move_done;
-    char *bomb;     // 1 if bomb, 0 otherwise
-    char *revealed; // 1 if revealed, 0 otherwise
-    char *flag;     // 1 if flagged, 0 otherwise
-    int *adj;       // number of adjacent bombs
+    int rows;              /* Numero de linhas */
+    int cols;              /* Numero de colunas */
+    int bombs;             /* Numero de bombas */
+    int revealed_count;    /* Contador de casas reveladas */
+    int first_move_done;   /* Flag: primeira jogada ja feita? */
+    char *bomb;            /* Array: 1 se tem bomba, 0 caso contrario */
+    char *revealed;        /* Array: 1 se revelada, 0 caso contrario */
+    char *flag;            /* Array: 1 se marcada com bandeira, 0 caso contrario */
+    int *adj;              /* Array: numero de bombas adjacentes */
 } Board;
 
 Board *board_create(int rows, int cols, int bombs);
