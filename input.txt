@@ -1,4 +1,0 @@
-TestPlayer
-s
-q
-s
