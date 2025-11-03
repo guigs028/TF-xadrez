@@ -1,12 +1,21 @@
+/**
+ * MODULO SCORE (Placar/Ranking)
+ * Gerencia o arquivo de recordes com os 10 melhores escores
+ * Menor escore = melhor (mais eficiente)
+ */
+
 #ifndef SCORE_H
 #define SCORE_H
 
-#define MAX_NAME 64
-#define MAX_SCORES 10
+#define MAX_NAME 64      /* Tamanho maximo do nome do jogador */
+#define MAX_SCORES 10    /* Numero maximo de escores no ranking */
 
+/**
+ * Estrutura que representa uma entrada no ranking
+ */
 typedef struct {
-    char name[MAX_NAME];
-    double score;
+    char name[MAX_NAME];  /* Nome do jogador */
+    double score;         /* Escore obtido */
 } Entry;
 
 void load_scores(const char *filename, Entry list[], int *n);
