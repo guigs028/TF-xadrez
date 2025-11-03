@@ -1,7 +1,7 @@
 /**
  * MODULO SCORE (Placar/Ranking)
  * Gerencia o arquivo de recordes com os 10 melhores escores
- * Menor escore = melhor (mais eficiente)
+ * Maior escore = melhor (mais casas reveladas)
  */
 
 #ifndef SCORE_H

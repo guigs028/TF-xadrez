@@ -4,15 +4,15 @@
 #include <string.h>
 
 /**
- * Funcao de comparacao para ordenar escores em ordem CRESCENTE
- * (menor escore = melhor, conforme especificacao do trabalho)
- * Retorna: negativo se a < b, positivo se a > b, 0 se iguais
+ * Funcao de comparacao para ordenar escores em ordem DECRESCENTE
+ * (maior escore = melhor, conforme especificacao do trabalho)
+ * Retorna: positivo se a < b, negativo se a > b, 0 se iguais
  */
-static int cmp_asc(const void *a, const void *b) {
+static int cmp_desc(const void *a, const void *b) {
     const Entry *ea = a;
     const Entry *eb = b;
-    if (ea->score < eb->score) return -1;
-    if (ea->score > eb->score) return 1;
+    if (ea->score < eb->score) return 1;
+    if (ea->score > eb->score) return -1;
     return 0;
 }
 
@@ -49,7 +49,7 @@ void save_scores(const char *filename, Entry list[], int n) {
 /**
  * Tenta adicionar um novo escore ao ranking
  * Carrega o ranking existente, adiciona o novo escore,
- * ordena em ordem crescente (menor = melhor) e salva apenas os top 10
+ * ordena em ordem decrescente (maior = melhor) e salva apenas os top 10
  * @param filename Nome do arquivo de ranking
  * @param name Nome do jogador
  * @param score Escore obtido
@@ -63,8 +63,8 @@ void try_add_score(const char *filename, const char *name, double score) {
     list[n].name[MAX_NAME-1] = '\0';
     list[n].score = score;
     n++;
-    // ordena em ordem crescente (menores escores primeiro = melhores)
-    qsort(list, n, sizeof(Entry), cmp_asc);
+    // ordena em ordem decrescente (maiores escores primeiro = melhores)
+    qsort(list, n, sizeof(Entry), cmp_desc);
     if (n > MAX_SCORES) n = MAX_SCORES;
     save_scores(filename, list, n);
 }
