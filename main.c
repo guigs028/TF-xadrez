@@ -1,3 +1,14 @@
+/*
+Compilar
+gcc -std=c99 -Wall -Wextra -o mines main.c board.c score.c
+
+Executar
+.\mines
+
+Limpar (opcional)
+Remove-Item mines.exe
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
