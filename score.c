@@ -4,9 +4,9 @@
 #include <string.h>
 
 /**
- * Funcao de comparacao para ordenar escores em ordem DECRESCENTE
- * (maior escore = melhor, conforme especificacao do trabalho)
- * Retorna: positivo se a < b, negativo se a > b, 0 se iguais
+ *funcao de comparacao para ordenar escores em ordem DECRESCENTE
+ *(maior escore = melhor, conforme especificacao do trabalho)
+ *retorna: positivo se a < b, negativo se a > b, 0 se iguais
  */
 static int cmp_desc(const void *a, const void *b) {
     const Entry *ea = a;
@@ -17,10 +17,10 @@ static int cmp_desc(const void *a, const void *b) {
 }
 
 /**
- * Carrega os escores do arquivo de ranking
- * @param filename Nome do arquivo a ser lido
- * @param list Array onde os escores serao armazenados
- * @param n Ponteiro para o numero de escores lidos
+ *carrega os escores do arquivo de ranking
+ * @param filename nome do arquivo a ser lido
+ * @param list array onde os escores serao armazenados
+ * @param n ponteiro para o numero de escores lidos
  */
 void load_scores(const char *filename, Entry list[], int *n) {
     *n = 0;
@@ -34,10 +34,10 @@ void load_scores(const char *filename, Entry list[], int *n) {
 }
 
 /**
- * Salva os escores no arquivo de ranking
- * @param filename Nome do arquivo onde salvar
- * @param list Array com os escores a serem salvos
- * @param n Numero de escores a salvar
+ *salva os escores no arquivo de ranking
+ * @param filename nome do arquivo onde salvar
+ * @param list array com os escores a serem salvos
+ * @param n numero de escores a salvar
  */
 void save_scores(const char *filename, Entry list[], int n) {
     FILE *f = fopen(filename, "w");
@@ -47,31 +47,31 @@ void save_scores(const char *filename, Entry list[], int n) {
 }
 
 /**
- * Tenta adicionar um novo escore ao ranking
- * Carrega o ranking existente, adiciona o novo escore,
- * ordena em ordem decrescente (maior = melhor) e salva apenas os top 10
- * @param filename Nome do arquivo de ranking
- * @param name Nome do jogador
- * @param score Escore obtido
+ *tenta adicionar um novo escore ao ranking
+ *carrega o ranking existente, adiciona o novo escore,
+ *ordena em ordem decrescente (maior = melhor) e salva apenas os top 10
+ * @param filename nome do arquivo de ranking
+ * @param name nome do jogador
+ * @param score escore obtido
  */
 void try_add_score(const char *filename, const char *name, double score) {
     Entry list[MAX_SCORES+1];
     int n = 0;
     load_scores(filename, list, &n);
-    // adiciona novo escore
+    //adiciona novo escore
     strncpy(list[n].name, name, MAX_NAME-1);
     list[n].name[MAX_NAME-1] = '\0';
     list[n].score = score;
     n++;
-    // ordena em ordem decrescente (maiores escores primeiro = melhores)
+    //ordena em ordem decrescente (maiores escores primeiro = melhores)
     qsort(list, n, sizeof(Entry), cmp_desc);
     if (n > MAX_SCORES) n = MAX_SCORES;
     save_scores(filename, list, n);
 }
 
 /**
- * Exibe o ranking dos 10 melhores escores na tela
- * @param filename Nome do arquivo de ranking
+ *exibe o ranking dos 10 melhores escores na tela
+ * @param filename nome do arquivo de ranking
  */
 void print_scores(const char *filename) {
     Entry list[MAX_SCORES];

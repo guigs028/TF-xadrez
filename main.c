@@ -1,10 +1,3 @@
-/**
- * CAMPO MINADO - Trabalho Final
- * Jogo Campo Minado implementado em C
- * O jogador deve revelar todas as casas sem bombas para vencer
- * Escore = 100.0 * casas_reveladas / (total_casas - bombas)
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,10 +10,10 @@
 #define RANKING_FILE "ranking.txt"
 
 /**
- * Calcula o escore atual do jogador
- * @param revealed Numero de casas reveladas
- * @param total_safe Total de casas sem bombas
- * @return Escore calculado
+ *calcula o escore atual do jogador
+ * @param revealed numero de casas reveladas
+ * @param total_safe total de casas sem bombas
+ * @return escore calculado
  */
 double calculate_score(int revealed, int total_safe) {
     return 100.0 * (double)revealed / (double)total_safe;
@@ -29,15 +22,15 @@ double calculate_score(int revealed, int total_safe) {
 int main(void) {
     char player[MAX_NAME];
     
-    /* Solicita o nome do jogador */
+    //solicita o nome do jogador
     printf("=== CAMPO MINADO ===\n");
     printf("Nome do jogador: ");
     if (!fgets(player, sizeof(player), stdin)) return 0;
-    /* Remove caractere de nova linha */
+    //remove caractere de nova linha
     player[strcspn(player, "\r\n")] = '\0';
     if (strlen(player) == 0) strncpy(player, "Anonimo", sizeof(player)-1);
 
-    /* Configuracao do tabuleiro */
+    //configuraçao do tabuleiro
     int rows = DEFAULT_ROWS, cols = DEFAULT_COLS, bombs = DEFAULT_BOMBS;
     printf("Usar valores padrao %dx%d com %d bombas? (s/n): ", rows, cols, bombs);
     char line[128];
@@ -52,7 +45,7 @@ int main(void) {
         }
     }
 
-    /* Cria o tabuleiro */
+    //cria o tabuleiro
     Board *b = board_create(rows, cols, bombs);
     if (!b) { fprintf(stderr, "Erro ao alocar tabuleiro\n"); return 1; }
 
@@ -63,9 +56,9 @@ int main(void) {
     printf("\nBoa sorte, %s!\n\n", player);
     printf("\nBoa sorte, %s!\n\n", player);
     
-    /* Loop principal do jogo */
+    //loop principal do jogo
     while (running) {
-        /* Mostra o tabuleiro e o escore atual */
+        //mostra o tabuleiro e o escore atual
         board_print(b, 0);
         double current_score = calculate_score(b->revealed_count, total_safe);
         printf("\nJogador: %s | Escore atual: %.2f | Casas reveladas: %d/%d\n", 
@@ -93,7 +86,7 @@ int main(void) {
                 if (!board_in_bounds(b,r,c)) { printf("Posicao fora dos limites\n"); continue; }
                 int res = board_reveal(b, r, c);
                 if (res == 1) {
-                    /* Detonou uma bomba - fim de jogo */
+                    //detonou uma bomba - fim de jogo
                     board_reveal_all_bombs(b);
                     board_print(b, 1);
                     printf("\nBOOM! Voce detonou uma bomba. Fim de jogo.\n");
@@ -101,7 +94,7 @@ int main(void) {
                 } else if (res == -1) {
                     printf("Casa ja revelada ou marcada\n");
                 } else {
-                    /* Verifica se venceu o jogo */
+                    //verifica se venceu o jogo
                     if (b->revealed_count == total_safe) {
                         board_print(b, 1);
                         printf("\n*** PARABENS %s! VOCE VENCEU! ***\n", player);
